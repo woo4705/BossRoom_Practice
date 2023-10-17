@@ -1,0 +1,15 @@
+namespace FbPacket;
+
+enum FbConnectStatus: short {
+    Undefined				= 0, 
+    Success					= 1, //client successfully connected. This may also be a successful reconnect.
+    ServerFull				= 2, //can't join, server is already at capacity.
+    LoggedInAgain			= 3, //logged in on a separate client, causing this one to be kicked out.
+    UserRequestedDisconnect = 4, //Intentional Disconnect triggered by the user.
+    GenericDisconnect 		= 5, //server disconnected, but no specific reason given.
+    Reconnecting			= 6, //client lost connection and is attempting to reconnect.
+    IncompatibleBuildType   = 7, //client build type is incompatible with server.
+    HostEndedSession        = 8, //host intentionally ended the session.
+    StartClientFailed       = 9, // failed to connect to server and/or invalid network endpoint
+
+}

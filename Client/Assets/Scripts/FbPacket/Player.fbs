@@ -1,0 +1,34 @@
+namespace FbPacket;
+
+enum FbClassType: byte {  
+	None		= 0, 
+	Tank		= 1, 
+	Archer	= 2, 
+	Mage		= 3, 
+	Rogue	= 4, 
+}
+
+struct FbVec3 {
+  x:float;
+  y:float;
+  z:float;
+}
+
+struct FbQuat {
+  x:float;
+  y:float;
+  z:float;
+  w:float;
+}
+
+table FbPlayer {
+  id: long;
+  nick_name: string; 
+  position: FbVec3;
+  rotation: FbQuat;
+  hp: short;
+  name: string;
+  class: FbClassType;   
+}
+ 
+root_type FbPlayer;

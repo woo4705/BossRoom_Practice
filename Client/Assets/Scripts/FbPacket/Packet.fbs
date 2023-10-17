@@ -1,0 +1,124 @@
+namespace PacketDefine;
+
+union PACKET_ID
+{
+	PACKET_LOGIN_REQ,
+	PACKET_LOGIN_RES,
+
+	PACKET_CREATE_LOBBY_REQ,
+	PACKET_CREATE_LOBBY_RES,
+	PACKET_ENTER_LOBBY_REQ,
+	PACKET_ENTER_LOBBY_RES,
+    PACKET_LEAVE_LOBBY_REQ,
+	PACKET_LEAVE_LOBBY_RES,
+
+
+}
+
+
+enum ErrorCode: short {
+        SUCCESS = 0,
+
+        USER_MGR_INVALID_USER_INDEX = 11,
+        USER_MGR_INVALID_USER_UNIQUEID = 12,
+
+        LOGIN_USER_AUTHURIZE_FAIL = 1001,
+        LOGIN_USER_ALREADY = 1002,
+        LOGIN_USER_USED_ALL_OBJ = 1003,
+
+        NEW_ROOM_USED_ALL_OBJ =  2001,
+        NEW_ROOM_FAIL_ENTER = 2002,
+
+        ENTER_ROOM_NOT_FIND_USER = 2003,
+        ENTER_ROOM_INVALID_USER_STATUS = 2004,
+        ENTER_ROOM_NOT_USED_STATUS = 2005,
+        ENTER_ROOM_FULL_USER = 2006,
+
+        ROOM_INVALID_INDEX = 2007,
+        ROOM_NOT_USED = 2008,
+        ROOM_TOO_MANY_PACKET = 2009,
+        LEAVE_ROOM_INVALID_ROOM_INDEX = 2010,
+        CHAT_ROOM_INVALID_ROOM_INDEX = 2011,
+}
+ 
+table Packet
+{
+	packet_id: PACKET_ID;
+}
+ 
+root_type Packet;
+ 
+table PACKET_LOGIN_REQ
+{
+	used_id: string;
+	password: string;	
+}
+ 
+table PACKET_LOGIN_RES
+{
+	error_code : ErrorCode;
+    used_id: string;
+}
+ 
+ 
+table PACKET_CREATE_LOBBY_REQ {
+}
+
+table PACKET_CREATE_LOBBY_RES {
+    error_code : ErrorCode;
+    room_id: short;
+    enter_key: string;
+}
+
+table PACKET_ENTER_LOBBY_REQ {
+    room_id: short;
+    enter_key: string;
+}
+table PACKET_ENTER_LOBBY_RES {
+    err_code: ErrorCode;
+    room_id: short;
+}
+
+table PACKET_LEAVE_LOBBY_REQ {
+}
+table PACKET_LEAVE_LOBBY_RES  {
+    err_code: ErrorCode;
+}
+
+enum PacketOldID: short {
+        INVALID = 0,
+
+        SYSTEM_CLIENT_CONNECT = 11,
+        SYSTEM_CLIENT_DISCONNECTD = 12,
+
+        LoginReq = 201,
+        LoginRes = 202,
+
+        NewLobbyReq = 203,
+        NewLobbyRes = 204,
+
+        EnterLobbyReq = 206,
+        EnterLobbyRes = 207,
+
+        LeaveLobbyReq = 209,
+        LeaveLobbyRes = 210,
+
+        ChatLobbyReq = 214,
+        ChatLobbyRes = 215,
+        ChatLobbyNtf = 216,
+
+        GameStartReqPkt = 301,
+        GameStartResPkt = 302,
+        GameStartNtfPkt = 303,
+
+        GameSyncReqPkt = 304,
+        GameSyncNtfPkt = 305,
+
+        GameScoreUpdateReqPkt = 306,
+        GameScoreUpdateNtfPkt = 307,
+        GameScoreUpdateResPkt = 308,
+
+        GameEndReqPkt = 311,
+        GameEndResPkt = 312,
+        GameEndNtfPkt = 313,
+}
